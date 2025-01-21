@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/fonts',
     '@nuxt/image',
+    'nuxt-lucide-icons',
   ],
   shadcn: {
     prefix: '',
