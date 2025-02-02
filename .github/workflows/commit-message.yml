@@ -1,0 +1,28 @@
+name: Update Initial Commit Message
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for initial commit
+        id: check_commit
+        run: |
+          if [ "$(git rev-list --count HEAD)" -eq 1 ]; then
+            echo "true" > initial_commit.txt
+          else
+            echo "false" > initial_commit.txt
+          fi
+
+      - name: Change commit message
+        if: steps.check_commit.outputs.initial_commit == 'true'
+        run: |
+          git commit --amend -m "build(setup): initialize repository"
+          git push --force
